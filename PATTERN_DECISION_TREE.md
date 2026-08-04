@@ -436,6 +436,175 @@ like a software designer.
 
 ---
 
+# Every pattern, grouped by pattern
+
+Everything above, pulled together by pattern — the exact same facts, just
+gathered under one heading per pattern instead of split across Steps 1–7
+and the decision tree. Some patterns have a full worked example; others
+only got a line or two so far, and that's shown as-is rather than padded out.
+
+## Creational
+
+### Factory (Factory Method)
+- **Symptom:** object creation is complicated.
+- **Example:** a type-based if/else chain building different report types (`PdfReport`, `CsvReport`, `ExcelReport`) — see Question 1.
+- **Checklist cue:** is object creation becoming difficult?
+- **Code smell:** too many `new()` calls.
+- **SOLID:** Dependency Inversion.
+- **Real-world:** Spring Bean creation.
+- **Decision-tree step:** #1 — is object creation becoming complex?
+
+### Abstract Factory
+- **SOLID:** Dependency Inversion (alongside Factory).
+- *(Otherwise only appears in the pattern-family grouping — no dedicated example yet.)*
+
+### Builder
+- **Symptom:** too many constructor parameters.
+- **Example:** an `Employee` constructor with ten-plus parameters — see Question 5.
+- **Checklist cue:** need many constructor parameters?
+- **Code smell:** constructor with 20 arguments.
+- **Real-world:** `RestTemplateBuilder` / `WebClient.Builder`.
+- **Decision-tree step:** #1 — shared with Factory.
+
+### Prototype
+- **Symptom:** copying an existing object beats rebuilding it.
+- **Example:** cloning a fully-configured game `Robot` — see Question 7.
+- **Checklist cue:** copying beats rebuilding from scratch?
+- **Code smell:** copy-pasted setup code every time you need "one more like this."
+- **Real-world:** `Object.clone()` / `Cloneable`.
+- **Decision-tree step:** #9.
+
+### Singleton
+- **Symptom:** only one instance should exist (rarely the right call).
+- *(Otherwise only appears in the pattern-family grouping.)*
+
+## Structural
+
+### Adapter
+- **Symptom:** existing interface is incompatible.
+- **Checklist cue:** need compatibility?
+- **SOLID:** Interface Segregation.
+- **Decision-tree step:** #5 — integrating an incompatible API.
+- *(No dedicated worked example yet.)*
+
+### Bridge
+- **SOLID:** Interface Segregation (alongside Adapter).
+- *(Otherwise only appears in the pattern-family grouping.)*
+
+### Composite
+- **Symptom:** a single item and a group of items must act alike.
+- **Example:** a `File`/`Folder` tree where both need `size()` — see Question 8.
+- **Checklist cue:** a leaf and a whole branch need to act alike?
+- **Code smell:** special-casing "is this one item or a whole group?" everywhere.
+- **Real-world:** rendering nested folders/files in a file explorer.
+- **Decision-tree step:** #10.
+
+### Decorator
+- **Symptom:** need to wrap existing functionality.
+- **Example:** Coffee + Milk + Sugar combinations exploding into subclasses — see Question 3.
+- **Checklist cue:** need wrappers?
+- **Code smell:** too many subclasses.
+- **SOLID:** Single Responsibility, Open/Closed.
+- **Real-world:** `Collections.unmodifiableList()`.
+- **Decision-tree step:** #3.
+
+### Facade
+- **Symptom:** one object controls many subsystems.
+- **Example:** `OrderService` calling Inventory/Payment/Shipping/Invoice/Email/SMS directly — see Question 6.
+- **Checklist cue:** need one entry point?
+- **SOLID:** Single Responsibility.
+- **Real-world:** SLF4J logging wrappers.
+- **Decision-tree step:** #6.
+
+### Flyweight
+- **Symptom:** objects should share common state.
+- *(Otherwise only appears in the pattern-family grouping.)*
+
+### Proxy
+- **Real-world:** Spring AOP (`@Transactional`, `@Cacheable`).
+- **Decision-tree step:** #7 — intercepting or adding behavior transparently.
+- *(No dedicated symptom row or example yet.)*
+
+## Behavioral
+
+### Strategy
+- **Symptom:** behavior changes at runtime.
+- **Example:** payment-method if/else chains (Credit Card, UPI, Wallet, Net Banking) — see Question 2.
+- **Checklist cue:** need multiple algorithms? / need runtime behavior changes?
+- **Code smell:** huge if-else.
+- **SOLID:** Open/Closed, Liskov Substitution.
+- **Real-world:** multiple payment gateways (Razorpay, Stripe, PayPal).
+- **Decision-tree step:** #2 — shared with State.
+
+### Observer
+- **Symptom:** need notifications to multiple objects.
+- **Example:** order placed → Email, SMS, Analytics, Inventory all reacting — see Question 4.
+- **Checklist cue:** need notifications?
+- **Real-world:** Kafka event consumers notifying multiple services.
+- **Decision-tree step:** #4.
+
+### Command
+- **Symptom:** need undo/history.
+- *(Otherwise only appears in the pattern-family grouping.)*
+
+### State
+- **Checklist cue:** need runtime behavior changes? (alongside Strategy)
+- **SOLID:** Liskov Substitution (alongside Strategy).
+- **Decision-tree step:** #2 — shared with Strategy.
+- *(No dedicated symptom row or example yet.)*
+
+### Template Method
+- **SOLID:** Open/Closed.
+- **Real-world:** `JdbcTemplate`.
+- *(Otherwise only appears in the pattern-family grouping.)*
+
+### Chain of Responsibility
+- **Real-world:** Spring Security filter chain.
+- **Decision-tree step:** #8 — executing a sequence of handlers.
+- *(No dedicated symptom row or example yet.)*
+
+### Iterator
+- **Symptom:** need to loop without exposing internal storage.
+- **Example:** looping over a `cart` without knowing if it's an array, list, or DB cursor — see Question 9.
+- **Checklist cue:** need to loop without exposing internal storage?
+- **Code smell:** a getter added just so another class can walk your internal storage.
+- **Real-world:** iterating a Java `Collection` or a JDBC `ResultSet`.
+- **Decision-tree step:** #11.
+
+### Mediator
+- **Symptom:** objects call each other in a tangled web.
+- **Example:** a chat room routing messages instead of users holding direct references to each other — see Question 10.
+- **Checklist cue:** objects calling each other directly, in a tangled web?
+- **Code smell:** every object holding direct references to five other objects.
+- **Real-world:** a central event bus decoupling senders from listeners.
+- **Decision-tree step:** #12.
+
+### Memento
+- **Symptom:** need undo without exposing internals.
+- **Example:** saving/restoring an editor's state for undo — see Question 11.
+- **Checklist cue:** need undo without exposing internals?
+- **Code smell:** a getter added just so another class can snapshot your state for later.
+- **Real-world:** Ctrl+Z in any editor or IDE.
+- **Decision-tree step:** #13.
+
+### Visitor
+- **Symptom:** need a new operation across a whole hierarchy.
+- **Example:** adding `exportToSvg()`/`calculateArea()` across a `Shape` hierarchy without editing every class — see Question 12.
+- **Checklist cue:** adding operations, not types, to a hierarchy?
+- **Code smell:** a new method added to every class in a hierarchy, every single time.
+- **SOLID:** Open/Closed.
+- **Real-world:** compiler/parser AST visitors (ANTLR, javac).
+- **Decision-tree step:** #14.
+
+### Interpreter
+- **Symptom:** evaluating a small custom expression language.
+- **Example:** a discount-rule engine parsing `"price > 100 AND category == 'electronics'"` — see Question 13.
+- **Checklist cue:** evaluating a small custom grammar or rule syntax?
+- **Real-world:** Spring Expression Language (SpEL), regex engines.
+- **Decision-tree step:** #15.
+
+---
+
 ## This repo as practice material
 
 Every pattern named above is implemented in this repo — see the
