@@ -1,5 +1,7 @@
 # Visitor Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: new operations over the Diner Menu tree — a Head-First-style
 example built for this repo, reusing the book's own menu domain. Head First
 Design Patterns only covers Visitor briefly, in its "leftover patterns"

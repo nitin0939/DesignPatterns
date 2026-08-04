@@ -1,5 +1,7 @@
 # Adapter Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: the Duck/Turkey Adapter, from Head First Design Patterns.*
 
 ## What it is

@@ -1,5 +1,7 @@
 # Bridge Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: a universal Remote Control, over a TV or Radio — a Head-First-style
 example built for this repo. Head First Design Patterns only covers Bridge
 briefly, in its "leftover patterns" chapter, without a fully worked example,

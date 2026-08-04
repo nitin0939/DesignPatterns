@@ -1,5 +1,7 @@
 # Builder Pattern — Fluent (Chained-Setter) Variant
 
+[← Not sure this is the right pattern? See the decision tree](../../../../../PATTERN_DECISION_TREE.md)
+
 This is an alternative implementation of the same Builder pattern as
 [`../Builder_README.md`](../Builder_README.md), built to a more "modern Java"
 style: chained setters instead of a separate `Barista`. Same product

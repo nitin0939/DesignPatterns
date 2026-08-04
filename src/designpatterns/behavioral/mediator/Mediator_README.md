@@ -1,5 +1,7 @@
 # Mediator Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: a smart home hub coordinating an alarm clock, coffee maker, and
 blinds — a Head-First-style example built for this repo. Head First Design
 Patterns only covers Mediator briefly, in its "leftover patterns" chapter,

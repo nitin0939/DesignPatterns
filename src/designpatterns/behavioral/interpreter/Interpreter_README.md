@@ -1,5 +1,7 @@
 # Interpreter Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: a tiny postfix (RPN) arithmetic evaluator — a Head-First-style
 example built for this repo. Head First Design Patterns only covers
 Interpreter briefly, in its "leftover patterns" chapter, without a fully

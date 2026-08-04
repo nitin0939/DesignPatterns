@@ -1,5 +1,7 @@
 # Iterator Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: the Pancake House / Diner merged menu, from Head First Design Patterns.*
 
 ## What it is

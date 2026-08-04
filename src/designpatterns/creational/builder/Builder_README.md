@@ -1,5 +1,7 @@
 # Builder Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: a Starbuzz Coffee order — a Head-First-style example built for this
 repo. Head First Design Patterns doesn't give Builder a fully worked chapter
 example (it's covered briefly in the "leftover patterns" chapter), so this

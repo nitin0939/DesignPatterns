@@ -1,5 +1,7 @@
 # Flyweight Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: a forest of trees — a Head-First-style example built for this
 repo. Head First Design Patterns only covers Flyweight briefly, in its
 "leftover patterns" chapter, without a fully worked example, so this isn't a

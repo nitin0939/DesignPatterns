@@ -1,5 +1,7 @@
 # Strategy Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: the Duck Simulator (SimUDuck), from Head First Design Patterns — its opening, defining example.*
 
 ## What it is

@@ -1,5 +1,7 @@
 # Command Design Pattern
 
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+
 *Example: the Remote Control, from Head First Design Patterns.*
 
 ## What it is
