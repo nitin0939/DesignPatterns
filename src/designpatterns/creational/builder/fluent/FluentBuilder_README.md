@@ -1,7 +1,7 @@
 # Builder Pattern — Fluent (Chained-Setter) Variant
 
 [← Not sure this is the right pattern? See the decision tree](../../../../../PATTERN_DECISION_TREE.md) ·
-[quick reference for all 23](../../../../../PATTERN_DECISION_TREE.md#user-content-every-pattern-grouped-by-pattern)
+[quick reference for all 23](../../../../../PATTERN_DECISION_TREE.md#every-pattern-grouped-by-pattern)
 
 This is an alternative implementation of the same Builder pattern as
 [`../Builder_README.md`](../Builder_README.md), built to a more "modern Java"
