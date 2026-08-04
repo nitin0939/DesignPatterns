@@ -6,8 +6,8 @@ has one, and a clearly-labeled book-style invented example (reusing the
 book's own domains, like Duck or Starbuzz Coffee) where it doesn't.
 
 Not sure which pattern fits your problem? See
-**[PATTERN_DECISION_TREE.md](PATTERN_DECISION_TREE.md)** — a symptom-first
-field key that walks you to the right one.
+**[PATTERN_DECISION_TREE.md](PATTERN_DECISION_TREE.md)** — a problem-first
+technique for recognizing which pattern fits, instead of memorizing all 23.
 
 Every pattern lives in its own package with:
 - A runnable `Test*.java` client demonstrating it end to end
