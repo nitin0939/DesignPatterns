@@ -5,6 +5,10 @@ from *Head First Design Patterns* — the book's own canonical example where it
 has one, and a clearly-labeled book-style invented example (reusing the
 book's own domains, like Duck or Starbuzz Coffee) where it doesn't.
 
+Not sure which pattern fits your problem? See
+**[PATTERN_DECISION_TREE.md](PATTERN_DECISION_TREE.md)** — a symptom-first
+field key that walks you to the right one.
+
 Every pattern lives in its own package with:
 - A runnable `Test*.java` client demonstrating it end to end
 - Javadoc on every method
