@@ -9,7 +9,7 @@ Not sure which pattern fits your problem? See
 **[PATTERN_DECISION_TREE.md](PATTERN_DECISION_TREE.md)** — a problem-first
 technique for recognizing which pattern fits, instead of memorizing all 23.
 It also has a
-[quick-reference section](PATTERN_DECISION_TREE.md#every-pattern-grouped-by-pattern)
+[quick-reference section](PATTERN_DECISION_TREE.md#user-content-every-pattern-grouped-by-pattern)
 gathering every pattern's symptom, example, code smell, SOLID tie, and
 real-world usage under one heading per pattern, for fast lookup.
 
