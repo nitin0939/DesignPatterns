@@ -1,6 +1,7 @@
 # Prototype Design Pattern
 
-[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md)
+[← Not sure this is the right pattern? See the decision tree](../../../../PATTERN_DECISION_TREE.md) ·
+[quick reference for all 23](../../../../PATTERN_DECISION_TREE.md#every-pattern-grouped-by-pattern)
 
 *Example: cloning ducks in a pond — a Head-First-style example built for this
 repo. Head First Design Patterns only covers Prototype briefly, in its
