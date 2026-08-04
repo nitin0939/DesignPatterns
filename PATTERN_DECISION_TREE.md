@@ -35,6 +35,13 @@ For example
 | One object controls many subsystems    | Facade             |
 | Need undo/history                      | Command            |
 | Objects should share common state      | Flyweight          |
+| Copying an existing object beats rebuilding it | Prototype   |
+| A single item and a group of items must act alike | Composite |
+| Need to loop without exposing internal storage | Iterator    |
+| Objects call each other in a tangled web | Mediator          |
+| Need undo without exposing internals   | Memento             |
+| Need a new operation across a whole hierarchy | Visitor      |
+| Evaluating a small custom expression language | Interpreter  |
 
 Patterns are simply **solutions to recurring problems.**
 
@@ -145,6 +152,148 @@ Pattern? ✅ **Facade**
 
 ---
 
+## Question 7 — Is building this from scratch slower than copying one I already have?
+
+Example: a game character with a fully-configured loadout, or a document
+built from a heavily-customized template.
+
+```java
+Robot tank = new Robot("Tank", heavyArmor, weaponsLoadout);
+Robot tankCopy = tank.clone(); // instead of rebuilding all that setup again
+tankCopy.setName("Tank Copy");
+```
+
+Think
+
+> "I already have one of these built — can I just copy it?"
+
+Pattern? ✅ **Prototype**
+
+---
+
+## Question 8 — Do I need to treat one item and a group of items the same way?
+
+Example: a file system, where a `File` and a `Folder` (which itself
+contains files and folders) both need a `size()`.
+
+```java
+interface FileSystemNode { long size(); }
+
+class File implements FileSystemNode { ... }
+
+class Folder implements FileSystemNode {
+    List<FileSystemNode> children;
+    public long size() {
+        return children.stream().mapToLong(FileSystemNode::size).sum();
+    }
+}
+```
+
+Think
+
+> "This is a tree — leaves and branches should share one interface."
+
+Pattern? ✅ **Composite**
+
+---
+
+## Question 9 — Do I need to loop over a collection without knowing how it's stored?
+
+Example
+
+```java
+for (Item item : cart) {
+    process(item);
+}
+```
+
+This loop shouldn't care whether `cart` is backed by an array, a linked
+list, or a database cursor.
+
+Think
+
+> "The caller shouldn't know or care what's underneath this collection."
+
+Pattern? ✅ **Iterator**
+
+---
+
+## Question 10 — Are objects calling each other directly, and the web of connections is getting hard to follow?
+
+Example: a chat room, where every `User` would otherwise need a direct
+reference to every other `User` just to send a message.
+
+```java
+// instead of user1.notify(user2), user1.notify(user3), ...
+chatRoom.sendMessage(user1, "hello");
+```
+
+Think
+
+> "These objects shouldn't know about each other — only about one
+> coordinator."
+
+Pattern? ✅ **Mediator**
+
+---
+
+## Question 11 — Do I need to undo a change without exposing the object's private internals?
+
+Example: a text editor's undo button, or rewinding a game character to a
+checkpoint.
+
+```java
+EditorState snapshot = editor.save();
+// ...user keeps typing...
+editor.restore(snapshot); // back to the checkpoint
+```
+
+Think
+
+> "I need a rollback point, but I shouldn't have to expose everything just
+> to save it."
+
+Pattern? ✅ **Memento**
+
+---
+
+## Question 12 — Do I keep adding new operations, not new types, across a whole class hierarchy?
+
+Example: a `Shape` hierarchy (`Circle`, `Square`, `Triangle`) that now needs
+`exportToSvg()`, and next month `calculateArea()`, and after that
+`printSummary()` — each one touching every shape class if added as a method.
+
+```java
+shape.accept(new SvgExportVisitor());
+shape.accept(new AreaCalculatorVisitor());
+```
+
+Think
+
+> "I keep adding operations, not shapes — pull the operation out instead."
+
+Pattern? ✅ **Visitor**
+
+---
+
+## Question 13 — Am I evaluating expressions in a small custom language, not just calling a library?
+
+Example: a discount-rule engine parsing something like
+`"price > 100 AND category == 'electronics'"` and checking it against an order.
+
+```java
+Expression rule = RuleParser.parse("price > 100 AND category == 'electronics'");
+boolean applies = rule.interpret(order);
+```
+
+Think
+
+> "I'm building a mini-grammar, and each rule needs to evaluate itself."
+
+Pattern? ✅ **Interpreter**
+
+---
+
 # Step 3: Learn the pattern families
 
 Instead of remembering 23 patterns separately, group them by the question
@@ -158,7 +307,7 @@ Adapter · Decorator · Facade · Composite · Bridge · Proxy · Flyweight
 
 ## Behavioral — "How do objects communicate?"
 Strategy · Observer · Command · State · Template Method ·
-Chain of Responsibility · Mediator · Iterator · Visitor · Memento
+Chain of Responsibility · Mediator · Iterator · Visitor · Memento · Interpreter
 
 ---
 
@@ -174,6 +323,13 @@ Whenever you're coding, pause for 10 seconds and ask:
 - Need compatibility? → **Adapter**
 - Need one entry point? → **Facade**
 - Need many constructor parameters? → **Builder**
+- Copying beats rebuilding from scratch? → **Prototype**
+- A leaf and a whole branch need to act alike? → **Composite**
+- Need to loop without exposing internal storage? → **Iterator**
+- Objects are calling each other directly, in a tangled web? → **Mediator**
+- Need undo without exposing internals? → **Memento**
+- Adding operations, not types, to a hierarchy? → **Visitor**
+- Evaluating a small custom grammar or rule syntax? → **Interpreter**
 
 ---
 
@@ -185,6 +341,12 @@ This is the fastest method. Write bad code first, then ask "what smells?"
 - Too many `new()` calls → **Factory**
 - Too many subclasses → **Decorator**
 - Constructor with 20 arguments → **Builder**
+- Copy-pasted setup code every time you need "one more like this" → **Prototype**
+- Special-casing "is this one item or a whole group?" everywhere → **Composite**
+- A getter added just so another class can walk your internal storage → **Iterator**
+- A getter added just so another class can snapshot your state for later → **Memento**
+- Every object holding direct references to five other objects → **Mediator**
+- A new method added to every class in a hierarchy, every single time → **Visitor**
 
 Eventually, you'll start recognizing patterns from the code smells
 themselves, without needing to consciously run through a checklist.
@@ -198,7 +360,7 @@ Design patterns are built on top of SOLID.
 | SOLID Principle       | Common Patterns                      |
 | ---------------------- | ------------------------------------- |
 | Single Responsibility | Facade, Decorator                    |
-| Open/Closed            | Strategy, Decorator, Template Method |
+| Open/Closed            | Strategy, Decorator, Template Method, Visitor |
 | Liskov Substitution    | Strategy, State                      |
 | Interface Segregation | Adapter, Bridge                      |
 | Dependency Inversion   | Factory, Abstract Factory            |
@@ -222,6 +384,13 @@ Map patterns to real-world scenarios you already use:
 | Java `Collections.unmodifiableList()`                 | Decorator                |
 | Spring Security filter chain                          | Chain of Responsibility  |
 | `JdbcTemplate`                                        | Template Method          |
+| `Object.clone()` / `Cloneable`                        | Prototype                |
+| Rendering nested folders and files in a file explorer | Composite                |
+| Iterating a Java `Collection` or a JDBC `ResultSet`   | Iterator                 |
+| A central event bus decoupling senders from listeners | Mediator                 |
+| Ctrl+Z in any editor or IDE                            | Memento                  |
+| Compiler/parser AST visitors (e.g. in ANTLR, javac)   | Visitor                  |
+| Spring Expression Language (SpEL), regex engines      | Interpreter              |
 
 Recognizing these examples in frameworks you already use makes the
 patterns much easier to remember.
@@ -240,6 +409,13 @@ When you're designing a class or feature, use this sequence:
 6. **Do I want to simplify interactions with several subsystems?** → Facade
 7. **Do I need to intercept or add behavior transparently?** → Proxy
 8. **Am I executing a sequence of handlers?** → Chain of Responsibility
+9. **Would copying an existing object be easier than building one from scratch?** → Prototype
+10. **Should a single item and a whole group of items be treated identically?** → Composite
+11. **Do I need to walk a collection without exposing how it's stored?** → Iterator
+12. **Are objects calling each other directly in a tangled web?** → Mediator
+13. **Do I need undo/rollback without exposing an object's internals?** → Memento
+14. **Am I adding a new operation across a whole class hierarchy?** → Visitor
+15. **Am I evaluating sentences in a small custom grammar?** → Interpreter
 
 ---
 
