@@ -447,7 +447,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Factory (Factory Method)
 - **Symptom:** object creation is complicated.
-- **Example:** a type-based if/else chain building different report types (`PdfReport`, `CsvReport`, `ExcelReport`) — see Question 1.
+- **Question:** Am I creating too many objects?
+- **Example:** a type-based if/else chain building different report types (`PdfReport`, `CsvReport`, `ExcelReport`).
 - **Checklist cue:** is object creation becoming difficult?
 - **Code smell:** too many `new()` calls.
 - **SOLID:** Dependency Inversion.
@@ -460,7 +461,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Builder
 - **Symptom:** too many constructor parameters.
-- **Example:** an `Employee` constructor with ten-plus parameters — see Question 5.
+- **Question:** Is the constructor huge?
+- **Example:** an `Employee` constructor with ten-plus parameters.
 - **Checklist cue:** need many constructor parameters?
 - **Code smell:** constructor with 20 arguments.
 - **Real-world:** `RestTemplateBuilder` / `WebClient.Builder`.
@@ -468,7 +470,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Prototype
 - **Symptom:** copying an existing object beats rebuilding it.
-- **Example:** cloning a fully-configured game `Robot` — see Question 7.
+- **Question:** Is building this from scratch slower than copying one I already have?
+- **Example:** cloning a fully-configured game `Robot`.
 - **Checklist cue:** copying beats rebuilding from scratch?
 - **Code smell:** copy-pasted setup code every time you need "one more like this."
 - **Real-world:** `Object.clone()` / `Cloneable`.
@@ -493,7 +496,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Composite
 - **Symptom:** a single item and a group of items must act alike.
-- **Example:** a `File`/`Folder` tree where both need `size()` — see Question 8.
+- **Question:** Do I need to treat one item and a group of items the same way?
+- **Example:** a `File`/`Folder` tree where both need `size()`.
 - **Checklist cue:** a leaf and a whole branch need to act alike?
 - **Code smell:** special-casing "is this one item or a whole group?" everywhere.
 - **Real-world:** rendering nested folders/files in a file explorer.
@@ -501,7 +505,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Decorator
 - **Symptom:** need to wrap existing functionality.
-- **Example:** Coffee + Milk + Sugar combinations exploding into subclasses — see Question 3.
+- **Question:** Can new features be added without changing old code?
+- **Example:** Coffee + Milk + Sugar combinations exploding into subclasses.
 - **Checklist cue:** need wrappers?
 - **Code smell:** too many subclasses.
 - **SOLID:** Single Responsibility, Open/Closed.
@@ -510,7 +515,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Facade
 - **Symptom:** one object controls many subsystems.
-- **Example:** `OrderService` calling Inventory/Payment/Shipping/Invoice/Email/SMS directly — see Question 6.
+- **Question:** Does one class know too much?
+- **Example:** `OrderService` calling Inventory/Payment/Shipping/Invoice/Email/SMS directly.
 - **Checklist cue:** need one entry point?
 - **SOLID:** Single Responsibility.
 - **Real-world:** SLF4J logging wrappers.
@@ -529,7 +535,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Strategy
 - **Symptom:** behavior changes at runtime.
-- **Example:** payment-method if/else chains (Credit Card, UPI, Wallet, Net Banking) — see Question 2.
+- **Question:** Can behavior change?
+- **Example:** payment-method if/else chains (Credit Card, UPI, Wallet, Net Banking).
 - **Checklist cue:** need multiple algorithms? / need runtime behavior changes?
 - **Code smell:** huge if-else.
 - **SOLID:** Open/Closed, Liskov Substitution.
@@ -538,7 +545,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Observer
 - **Symptom:** need notifications to multiple objects.
-- **Example:** order placed → Email, SMS, Analytics, Inventory all reacting — see Question 4.
+- **Question:** Am I notifying multiple objects?
+- **Example:** order placed → Email, SMS, Analytics, Inventory all reacting.
 - **Checklist cue:** need notifications?
 - **Real-world:** Kafka event consumers notifying multiple services.
 - **Decision-tree step:** #4.
@@ -565,7 +573,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Iterator
 - **Symptom:** need to loop without exposing internal storage.
-- **Example:** looping over a `cart` without knowing if it's an array, list, or DB cursor — see Question 9.
+- **Question:** Do I need to loop over a collection without knowing how it's stored?
+- **Example:** looping over a `cart` without knowing if it's an array, list, or DB cursor.
 - **Checklist cue:** need to loop without exposing internal storage?
 - **Code smell:** a getter added just so another class can walk your internal storage.
 - **Real-world:** iterating a Java `Collection` or a JDBC `ResultSet`.
@@ -573,7 +582,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Mediator
 - **Symptom:** objects call each other in a tangled web.
-- **Example:** a chat room routing messages instead of users holding direct references to each other — see Question 10.
+- **Question:** Are objects calling each other directly, and the web of connections is getting hard to follow?
+- **Example:** a chat room routing messages instead of users holding direct references to each other.
 - **Checklist cue:** objects calling each other directly, in a tangled web?
 - **Code smell:** every object holding direct references to five other objects.
 - **Real-world:** a central event bus decoupling senders from listeners.
@@ -581,7 +591,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Memento
 - **Symptom:** need undo without exposing internals.
-- **Example:** saving/restoring an editor's state for undo — see Question 11.
+- **Question:** Do I need to undo a change without exposing the object's private internals?
+- **Example:** saving/restoring an editor's state for undo.
 - **Checklist cue:** need undo without exposing internals?
 - **Code smell:** a getter added just so another class can snapshot your state for later.
 - **Real-world:** Ctrl+Z in any editor or IDE.
@@ -589,7 +600,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Visitor
 - **Symptom:** need a new operation across a whole hierarchy.
-- **Example:** adding `exportToSvg()`/`calculateArea()` across a `Shape` hierarchy without editing every class — see Question 12.
+- **Question:** Do I keep adding new operations, not new types, across a whole class hierarchy?
+- **Example:** adding `exportToSvg()`/`calculateArea()` across a `Shape` hierarchy without editing every class.
 - **Checklist cue:** adding operations, not types, to a hierarchy?
 - **Code smell:** a new method added to every class in a hierarchy, every single time.
 - **SOLID:** Open/Closed.
@@ -598,7 +610,8 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Interpreter
 - **Symptom:** evaluating a small custom expression language.
-- **Example:** a discount-rule engine parsing `"price > 100 AND category == 'electronics'"` — see Question 13.
+- **Question:** Am I evaluating expressions in a small custom language, not just calling a library?
+- **Example:** a discount-rule engine parsing `"price > 100 AND category == 'electronics'"`.
 - **Checklist cue:** evaluating a small custom grammar or rule syntax?
 - **Real-world:** Spring Expression Language (SpEL), regex engines.
 - **Decision-tree step:** #15.
