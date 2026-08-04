@@ -453,7 +453,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Code smell:** too many `new()` calls.
 - **SOLID:** Dependency Inversion.
 - **Real-world:** Spring Bean creation.
-- **Decision-tree step:** #1 — is object creation becoming complex?
+- **Decision-tree step:** #1 — "Is object creation becoming complex?" → Factory / Builder.
 
 ### Abstract Factory
 - **SOLID:** Dependency Inversion (alongside Factory).
@@ -466,7 +466,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** need many constructor parameters?
 - **Code smell:** constructor with 20 arguments.
 - **Real-world:** `RestTemplateBuilder` / `WebClient.Builder`.
-- **Decision-tree step:** #1 — shared with Factory.
+- **Decision-tree step:** #1 — "Is object creation becoming complex?" → Factory / Builder (shared with Factory).
 
 ### Prototype
 - **Symptom:** copying an existing object beats rebuilding it.
@@ -475,7 +475,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** copying beats rebuilding from scratch?
 - **Code smell:** copy-pasted setup code every time you need "one more like this."
 - **Real-world:** `Object.clone()` / `Cloneable`.
-- **Decision-tree step:** #9.
+- **Decision-tree step:** #9 — "Would copying an existing object be easier than building one from scratch?"
 
 ### Singleton
 - **Symptom:** only one instance should exist (rarely the right call).
@@ -487,7 +487,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Symptom:** existing interface is incompatible.
 - **Checklist cue:** need compatibility?
 - **SOLID:** Interface Segregation.
-- **Decision-tree step:** #5 — integrating an incompatible API.
+- **Decision-tree step:** #5 — "Do I need to integrate an incompatible API?"
 - *(No dedicated worked example yet.)*
 
 ### Bridge
@@ -501,7 +501,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** a leaf and a whole branch need to act alike?
 - **Code smell:** special-casing "is this one item or a whole group?" everywhere.
 - **Real-world:** rendering nested folders/files in a file explorer.
-- **Decision-tree step:** #10.
+- **Decision-tree step:** #10 — "Should a single item and a whole group of items be treated identically?"
 
 ### Decorator
 - **Symptom:** need to wrap existing functionality.
@@ -511,7 +511,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Code smell:** too many subclasses.
 - **SOLID:** Single Responsibility, Open/Closed.
 - **Real-world:** `Collections.unmodifiableList()`.
-- **Decision-tree step:** #3.
+- **Decision-tree step:** #3 — "Am I adding features by creating many subclasses?"
 
 ### Facade
 - **Symptom:** one object controls many subsystems.
@@ -520,7 +520,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** need one entry point?
 - **SOLID:** Single Responsibility.
 - **Real-world:** SLF4J logging wrappers.
-- **Decision-tree step:** #6.
+- **Decision-tree step:** #6 — "Do I want to simplify interactions with several subsystems?"
 
 ### Flyweight
 - **Symptom:** objects should share common state.
@@ -528,7 +528,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Proxy
 - **Real-world:** Spring AOP (`@Transactional`, `@Cacheable`).
-- **Decision-tree step:** #7 — intercepting or adding behavior transparently.
+- **Decision-tree step:** #7 — "Do I need to intercept or add behavior transparently?"
 - *(No dedicated symptom row or example yet.)*
 
 ## Behavioral
@@ -541,7 +541,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Code smell:** huge if-else.
 - **SOLID:** Open/Closed, Liskov Substitution.
 - **Real-world:** multiple payment gateways (Razorpay, Stripe, PayPal).
-- **Decision-tree step:** #2 — shared with State.
+- **Decision-tree step:** #2 — "Do I have many `if-else` or `switch` statements based on type?" → Strategy or State (shared with State).
 
 ### Observer
 - **Symptom:** need notifications to multiple objects.
@@ -549,7 +549,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Example:** order placed → Email, SMS, Analytics, Inventory all reacting.
 - **Checklist cue:** need notifications?
 - **Real-world:** Kafka event consumers notifying multiple services.
-- **Decision-tree step:** #4.
+- **Decision-tree step:** #4 — "Do I need to notify multiple independent components?"
 
 ### Command
 - **Symptom:** need undo/history.
@@ -558,7 +558,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 ### State
 - **Checklist cue:** need runtime behavior changes? (alongside Strategy)
 - **SOLID:** Liskov Substitution (alongside Strategy).
-- **Decision-tree step:** #2 — shared with Strategy.
+- **Decision-tree step:** #2 — "Do I have many `if-else` or `switch` statements based on type?" → Strategy or State (shared with Strategy).
 - *(No dedicated symptom row or example yet.)*
 
 ### Template Method
@@ -568,7 +568,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 
 ### Chain of Responsibility
 - **Real-world:** Spring Security filter chain.
-- **Decision-tree step:** #8 — executing a sequence of handlers.
+- **Decision-tree step:** #8 — "Am I executing a sequence of handlers?"
 - *(No dedicated symptom row or example yet.)*
 
 ### Iterator
@@ -578,7 +578,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** need to loop without exposing internal storage?
 - **Code smell:** a getter added just so another class can walk your internal storage.
 - **Real-world:** iterating a Java `Collection` or a JDBC `ResultSet`.
-- **Decision-tree step:** #11.
+- **Decision-tree step:** #11 — "Do I need to walk a collection without exposing how it's stored?"
 
 ### Mediator
 - **Symptom:** objects call each other in a tangled web.
@@ -587,7 +587,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** objects calling each other directly, in a tangled web?
 - **Code smell:** every object holding direct references to five other objects.
 - **Real-world:** a central event bus decoupling senders from listeners.
-- **Decision-tree step:** #12.
+- **Decision-tree step:** #12 — "Are objects calling each other directly in a tangled web?"
 
 ### Memento
 - **Symptom:** need undo without exposing internals.
@@ -596,7 +596,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Checklist cue:** need undo without exposing internals?
 - **Code smell:** a getter added just so another class can snapshot your state for later.
 - **Real-world:** Ctrl+Z in any editor or IDE.
-- **Decision-tree step:** #13.
+- **Decision-tree step:** #13 — "Do I need undo/rollback without exposing an object's internals?"
 
 ### Visitor
 - **Symptom:** need a new operation across a whole hierarchy.
@@ -606,7 +606,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Code smell:** a new method added to every class in a hierarchy, every single time.
 - **SOLID:** Open/Closed.
 - **Real-world:** compiler/parser AST visitors (ANTLR, javac).
-- **Decision-tree step:** #14.
+- **Decision-tree step:** #14 — "Am I adding a new operation across a whole class hierarchy?"
 
 ### Interpreter
 - **Symptom:** evaluating a small custom expression language.
@@ -614,7 +614,7 @@ only got a line or two so far, and that's shown as-is rather than padded out.
 - **Example:** a discount-rule engine parsing `"price > 100 AND category == 'electronics'"`.
 - **Checklist cue:** evaluating a small custom grammar or rule syntax?
 - **Real-world:** Spring Expression Language (SpEL), regex engines.
-- **Decision-tree step:** #15.
+- **Decision-tree step:** #15 — "Am I evaluating sentences in a small custom grammar?"
 
 ---
 
