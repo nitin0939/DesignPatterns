@@ -1,0 +1,34 @@
+package designpatterns.behavioral.state;
+
+/**
+ * Concrete State in the State pattern.
+ * The machine's starting point: waiting for a quarter, nothing else is valid yet.
+ */
+public class NoQuarterState implements State {
+    private final GumballMachine machine;
+
+    public NoQuarterState(GumballMachine machine) {
+        this.machine = machine;
+    }
+
+    @Override
+    public void insertQuarter() {
+        System.out.println("You inserted a quarter");
+        machine.setState(machine.getHasQuarterState());
+    }
+
+    @Override
+    public void ejectQuarter() {
+        System.out.println("You haven't inserted a quarter");
+    }
+
+    @Override
+    public void turnCrank() {
+        System.out.println("You turned, but there's no quarter");
+    }
+
+    @Override
+    public void dispense() {
+        System.out.println("You need to pay first");
+    }
+}
